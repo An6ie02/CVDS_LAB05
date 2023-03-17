@@ -169,6 +169,8 @@ Cree un proyecto maven nuevo usando el arquetipo de aplicación Web estándar `m
 
 13. Teniendo en cuenta los siguientes métodos disponibles en los objetos ServletRequest y ServletResponse recibidos por el método doGet:
 
+    Crear el método como se indica en la guía de laboratorio.
+
 14. Una vez hecho esto, verifique el funcionamiento de la aplicación, recompile y ejecute la aplicación.
 
     ```bash
@@ -192,15 +194,15 @@ Cree un proyecto maven nuevo usando el arquetipo de aplicación Web estándar `m
 
 ### Parte III - CONTINUACION
 
-16. En su servlet,sobreescriba el método doPost, y haga la misma implementación del doGet.
+1. En su servlet,sobreescriba el método doPost, y haga la misma implementación del doGet.
 
     Se sobreescribe el método `doPost` con la misma implementación que `doGet` en la clase `Servlet`
 
-17. Cree el archivo index.html en el directorio src/main/webapp/index.html de la siguiente manera:
+2. Cree el archivo index.html en el directorio src/main/webapp/index.html de la siguiente manera:
 
     Se crea el archivo `index.html` en el directorio `src/main/webapp/`
 
-18. En la página anterior, cree un formulario que tenga un campo para ingresar un número (si no ha manejado html antes, revise [](http://www.w3schools.com/html/)) y un botón. El formulario debe usar como método ‘POST’, y como acción, la ruta relativa del último servlet creado (es decir la URL pero excluyendo ‘http://localhost:8080/’).
+3. En la página anterior, cree un formulario que tenga un campo para ingresar un número (si no ha manejado html antes, revise [](http://www.w3schools.com/html/)) y un botón. El formulario debe usar como método ‘POST’, y como acción, la ruta relativa del último servlet creado (es decir la URL pero excluyendo ‘<http://localhost:8080/>’).
 
     ```html
     <form method="POST" action="AngieDanielServlet">
@@ -210,7 +212,7 @@ Cree un proyecto maven nuevo usando el arquetipo de aplicación Web estándar `m
     </form>
     ```
 
-19. Revise este [ejemplo de validación de formularios con javascript](https://www.w3schools.com/js/js_validation.asp) y agruéguelo a su formulario, de manera que -al momento de hacer ‘submit’- desde el browser se valide que el valor ingresado es un valor numérico.
+4. Revise este [ejemplo de validación de formularios con javascript](https://www.w3schools.com/js/js_validation.asp) y agruéguelo a su formulario, de manera que -al momento de hacer ‘submit’- desde el browser se valide que el valor ingresado es un valor numérico.
 
     ```javascript
     function myFunction() {
@@ -221,7 +223,7 @@ Cree un proyecto maven nuevo usando el arquetipo de aplicación Web estándar `m
     }
     ```
 
-20. Recompile y ejecute la aplicación. Abra en su navegador en la página del formulario, y rectifique que la página hecha anteriormente sea mostrada. Ingrese los datos y verifique losresultados. Cambie el formulario para que ahora en lugar de POST, use el método GET . Qué diferencia observa?
+5. Recompile y ejecute la aplicación. Abra en su navegador en la página del formulario, y rectifique que la página hecha anteriormente sea mostrada. Ingrese los datos y verifique losresultados. Cambie el formulario para que ahora en lugar de POST, use el método GET . Qué diferencia observa?
 
     Formulario\
     ![Formulario](./imgs/formulario.png)
@@ -234,7 +236,7 @@ Cree un proyecto maven nuevo usando el arquetipo de aplicación Web estándar `m
 
     La diferencia que se observa es en la visualizacion de la url, usando GET indica el parámetro que fue enviado y en POST no indica ningún parámetro y la consulta es la misma.
 
-21. ¿Qué se está viendo? Revise cómo están implementados los métodos de la clase Service.java para entender el funcionamiento interno.
+6. ¿Qué se está viendo? Revise cómo están implementados los métodos de la clase Service.java para entender el funcionamiento interno.
 
     Se muestra una tabla con información de una tarea específica que se selecciona mediante un formulario que solicita una ID. La tabla se crea utilizando la clase Service, que obtiene la información de la tarea mediante el método `getTodo(int id)`. Luego, se utiliza el método `todosToHTMLTable(List todoList)` para crear la tabla a partir de una lista de tareas.
 
@@ -302,5 +304,3 @@ En este ejercicio, usted va a desarrollar una aplicación Web basada en el marco
    b. El número de intentosrealizados.
    c. El premio acumulado hasta el momento.
    d. El estado del juego, que sería una cadena de texto que indica si ya ganó o no, y si ganó de cuanto es el premio.
-
-
