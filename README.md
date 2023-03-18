@@ -297,10 +297,86 @@ En este ejercicio, usted va a desarrollar una aplicación Web basada en el marco
    </welcome-file-list>
    ```
 
-3. Revise cada una de lasconfiguraciones agregadas anteriormente para saber qué hacen y por qué se necesitan. Elimine las que no se necesiten.
+3. Revise cada una de las configuraciones agregadas anteriormente para saber qué hacen y por qué se necesitan. Elimine las que no se necesiten.
 
 4. Ahora, va a crear un Backing-Bean de sesión, el cual, para cada usuario, mantendrá de lado del servidor las siguientes propiedades:
    a. El número que actualmente debe adivinar (debe ser un número aleatorio).
-   b. El número de intentosrealizados.
+   b. El número de intentos realizados.
    c. El premio acumulado hasta el momento.
    d. El estado del juego, que sería una cadena de texto que indica si ya ganó o no, y si ganó de cuanto es el premio.
+
+5. Cree una página XHTML, de nombre `guess.xhtml` (debe quedar en la ruta `src/main/webapp`). Revise en la página [13 del manual de PrimeFaces](https://www.primefaces.org/docs/guide/primefaces_user_guide_5_2.pdf), qué espacios de nombres XML requiere una página de PrimeFaces y cuál esla estructura básica de la misma.
+
+    La estructura básica de una página de PrimeFaces
+
+    ```xhtml
+    <!DOCTYPE html>
+    <html xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:h="http://xmlns.jcp.org/jsf/html"
+          xmlns:p="http://primefaces.org/ui">
+      <h:head></h:head>
+      <h:body>
+        <p:editor />
+      </h:body>
+    </html>
+    ```
+
+6. Con base en lo anterior, agregue un formulario con identificador `guess_form` con el siguiente contenido básico:
+
+    Se realizó la implementación indicada en el laboratorio
+
+    ```xhtml
+    <h:body>
+      <h:form id="guess_form">
+      </h:form>
+    </h:body>
+    ```
+
+7. Al formulario, agregue los elementos indicados en la guía de laboratorio:
+
+    Se agregaron los siguientes elementos:
+
+    - `<p:outputLabel>` para el número que se debe adivinar,sin embargo, este elemento se debe ocultar.
+    - `<p:inputText>` para que el usuario ingrese su número.
+    - `<p:outputLabel>` para mostrar el número de intentosrealizados.
+    - `<p:outputLabel>` para mostrar el estado del juego.
+    - `<p:outputLabel>` para mostrar en cuanto va el premio.
+
+8. Al formulario, agregue dos botones de tipo `<p:commandButton>`, uno para enviar el número ingresado y ver si se atinó, y otro para reiniciar el juego.
+
+    Se agregó un botón para adivinar y otro para reiniciar el juego con las propiedades:
+
+    - El botón de envío de adivinanza debe tener asociado a su propiedad update el nombre del formulario en el que se agregaron los campos antes descritos, de manera que al hacer clic,se ejecute un ciclo de JSF y se refresque la vista.
+    - Debe tener también una propiedad actionListener con la cual e le indicará que, al hacer clic,se ejecutará el método guess,creado en el backing-bean de sesión:
+
+9. Para verificar el funcionamiento de la aplicación, agregue el plugin tomcat-runner dentro de los plugins de la fase de construcción (build). Tenga en cuenta que en la configuración del plugin se indica bajo que ruta quedará la aplicación:
+
+    Se compiló el proyecto y se vizualizó en [](http://localhost:8080/faces/guess.xhtml)
+
+10. Si todo funcionó correctamente, realice las siguientes pruebas:
+
+    - Abra la aplicación en un explorador. Realice algunas pruebascon el juego e intente adivinar el número.\
+        ![Intento](./imgs/pruebaintento.png)\
+        ![Ganador](./imgs/pruebaganador.png)
+    - Abra la aplicación en dos computadores diferentes. Si no dispone de uno, hágalo en dos navegadores diferentes(por ejemplo Chrome y Firefox; incluso se puede en un único navegador usando una ventana normal y una ventana de incógnito / privada). Haga cinco intentos en uno, y luego un intento en el otro. ¿Qué valor tiene cada uno?\
+        Cada uno obtiene el mismo valor que el otro, y en uno se obtuvo un intendo de más\
+        ![Computadores](./imgs/pruebacomputadores.png)
+    - Aborte el proceso de Tomcat-runner haciendo `Ctrl+C` en la consola, y modifique el código del backing-bean de manera que use la anotación @SessionScoped en lugar de @ApplicationScoped. Reinicie la aplicación y repita el ejercicio anterior. ¿Coinciden los valores del premio?.
+        Los valores en cada computador son diferentes por lo que no coinciden en el premio\
+        ![Computadores2](./imgs/pruebacomputadores2.png)
+
+        Dado la anterior, ¿Cuál es la diferencia entre los backing-beans de sesión y los de aplicación?
+
+        - Un backing bean de sesión se crea una sola vez por usuario durante toda la sesión de la aplicación, es decir, Los datos almacenados en el backing bean de sesión estarán disponibles para el usuario durante toda la sesión.
+        - Un backing bean de aplicación se crea una sola vez durante el arranque de la aplicación y se comparte entre todos los usuarios de l aplicación, es decir, Los datos almacenados en un backing bean de aplicación serán los mismos para todos los usuarios de la aplicación.
+    - Por medio de las herramientas de desarrollador del explorador (Usando la tecla "F12" en la mayoría de exploradores): Busque el elemento oculto, que contiene el número generado aleatoriamente. En la sección de estilos, deshabilite el estilo que oculta el elemento para que sea visible.\
+    ![Visible](./imgs/devtools.png)
+
+11. Para facilitar losintentos del usuario, se agregará una lista de los últimos intentos fallidos realizados:
+
+    - Agregue en el `Backing-Bean`, una propiedad que contenga una lista de intentados realizados.
+    - Agregue cada intento a la lista, cuando se ejecute el método `guess`.
+    - Cuando se reinicie el juego, limpie el contenido de la lista.
+    - Busque cómo agregar una tabla a la página, cuyo contenido sea los últimos intentos realizados.
+
+    ![Tablet](./imgs/pruebacontabla.png)
